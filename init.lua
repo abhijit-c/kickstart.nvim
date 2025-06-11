@@ -624,6 +624,12 @@ require('lazy').setup({
             })
           end
 
+          -- The following code ensures that pyright and ruff don't interfere
+          if client and client.name == 'ruff' then
+            -- Disable hover
+            client.server_capabilities.hoverProvider = false
+          end
+
           -- The following code creates a keymap to toggle inlay hints in your
           -- code, if the language server you are using supports them
           --
@@ -683,7 +689,8 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
+        ruff = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
